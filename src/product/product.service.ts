@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Product, ProductDocument } from './product.schema';
 import { Model } from 'mongoose';
+import { ProductCategory } from '../enums/enums';
 
 @Injectable()
 export class ProductService {
@@ -16,5 +17,9 @@ export class ProductService {
 
   async findAll(): Promise<Product[]> {
     return this.productModel.find().exec();
+  }
+
+  async findByCategory(category: ProductCategory): Promise<Product[]> {
+    return this.productModel.find({ 'details.category': category }).exec();
   }
 }

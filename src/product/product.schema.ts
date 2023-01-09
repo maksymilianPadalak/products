@@ -1,4 +1,4 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Prop, raw, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 import { ProductCategory } from '../enums/enums';
 
@@ -14,15 +14,17 @@ export class Product {
   })
   name: string;
 
-  @Prop({
-    type: { type: String, required: true, enum: ProductCategory },
-    title: {
-      type: String,
-      required: true,
-    },
-    album: { type: String, required: true },
-    genre: { type: String },
-  })
+  @Prop(
+    raw({
+      category: { type: String, required: true, enum: ProductCategory },
+      title: {
+        type: String,
+        required: true,
+      },
+      album: { type: String, required: true },
+      genre: { type: String },
+    }),
+  )
   details: Record<string, any>;
 }
 
