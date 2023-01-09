@@ -1,4 +1,4 @@
-export enum ProductType {
+export enum ProductCategory {
   'ALBUM' = 'ALBUM',
   'MOVIE' = 'MOVIE',
 }
