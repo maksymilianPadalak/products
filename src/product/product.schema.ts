@@ -21,8 +21,9 @@ export class Product {
         type: String,
         required: true,
       },
-      album: { type: String, required: true },
+      album: { type: String },
       genre: { type: String },
+      price: { type: Number, required: true },
     }),
   )
   details: Record<string, any>;

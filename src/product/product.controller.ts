@@ -10,6 +10,7 @@ import {
 import { ProductService } from './product.service';
 import { Product } from './product.schema';
 import { ProductCategory } from '../enums/enums';
+import { SortOrder } from 'mongoose';
 
 @Controller('products')
 export class ProductController {
@@ -20,11 +21,12 @@ export class ProductController {
     return this.productService.findAll();
   }
 
-  @Get(':category')
+  @Get(':category/:order?')
   productsByCategory(
     @Param('category') category: ProductCategory,
+    @Param('order') order?: SortOrder,
   ): Promise<Product[]> {
-    return this.productService.findByCategory(category);
+    return this.productService.findByCategory(category, order);
   }
 
   @Post()

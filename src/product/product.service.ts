@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Product, ProductDocument } from './product.schema';
-import { Model } from 'mongoose';
+import { Model, SortOrder } from 'mongoose';
 import { ProductCategory } from '../enums/enums';
 
 @Injectable()
@@ -19,7 +19,13 @@ export class ProductService {
     return this.productModel.find().exec();
   }
 
-  async findByCategory(category: ProductCategory): Promise<Product[]> {
-    return this.productModel.find({ 'details.category': category }).exec();
+  async findByCategory(
+    category: ProductCategory,
+    sortOrder?: SortOrder,
+  ): Promise<Product[]> {
+    return this.productModel
+      .find({ 'details.category': category })
+      .sort({ 'details.price': sortOrder })
+      .exec();
   }
 }
