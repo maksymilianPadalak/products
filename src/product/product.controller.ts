@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpStatus,
   Param,
@@ -10,7 +11,7 @@ import {
 import { ProductService } from './product.service';
 import { Product } from './product.schema';
 import { ProductCategory } from '../enums/enums';
-import { SortOrder } from 'mongoose';
+import { ObjectId, SortOrder } from 'mongoose';
 
 @Controller('products')
 export class ProductController {
@@ -35,5 +36,10 @@ export class ProductController {
     return response.status(HttpStatus.CREATED).json({
       newProduct,
     });
+  }
+
+  @Delete(':id')
+  async deleteProduct(@Param('id') id: ObjectId) {
+    await this.productService.deleteProduct(id);
   }
 }

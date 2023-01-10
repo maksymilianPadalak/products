@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Product, ProductDocument } from './product.schema';
-import { Model, SortOrder } from 'mongoose';
+import { Model, ObjectId, SortOrder } from 'mongoose';
 import { ProductCategory } from '../enums/enums';
 
 @Injectable()
@@ -27,5 +27,9 @@ export class ProductService {
       .find({ 'details.category': category })
       .sort({ 'details.price': sortOrder })
       .exec();
+  }
+
+  async deleteProduct(id: ObjectId): Promise<void> {
+    await this.productModel.findByIdAndDelete(id).exec();
   }
 }
