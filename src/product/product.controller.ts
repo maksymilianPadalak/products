@@ -5,6 +5,7 @@ import {
   Get,
   HttpStatus,
   Param,
+  Patch,
   Post,
   Res,
 } from '@nestjs/common';
@@ -41,5 +42,10 @@ export class ProductController {
   @Delete(':id')
   async deleteProduct(@Param('id') id: ObjectId) {
     await this.productService.deleteProduct(id);
+  }
+
+  @Patch(':id')
+  async updateProduct(@Param('id') id: ObjectId, @Body() product: Product) {
+    await this.productService.updateProduct(id, product);
   }
 }

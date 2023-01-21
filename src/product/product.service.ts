@@ -32,4 +32,13 @@ export class ProductService {
   async deleteProduct(id: ObjectId): Promise<void> {
     await this.productModel.findByIdAndDelete(id).exec();
   }
+
+  async updateProduct(
+    id: ObjectId,
+    updatedProduct: Partial<Product>,
+  ): Promise<Product> {
+    return await this.productModel
+      .findOneAndUpdate({ id }, { $set: updatedProduct })
+      .exec();
+  }
 }
