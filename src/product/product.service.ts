@@ -50,4 +50,10 @@ export class ProductService {
       .findOneAndUpdate({ id }, { $push: { reviews: review } })
       .exec();
   }
+
+  async deleteReview(id: ObjectId): Promise<Product> {
+    return await this.productModel
+      .findOneAndUpdate({ id }, { $pull: { reviews: { _id: id } } })
+      .exec();
+  }
 }

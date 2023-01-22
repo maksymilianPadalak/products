@@ -56,4 +56,9 @@ export class ProductController {
   ) {
     await this.productService.addReview(id, review);
   }
+
+  @Delete('delete-review/:id')
+  async deleteReview(@Param('id') id: ObjectId) {
+    await this.productService.deleteReview(id);
+  }
 }
