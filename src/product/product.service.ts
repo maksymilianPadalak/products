@@ -41,4 +41,13 @@ export class ProductService {
       .findOneAndUpdate({ id }, { $set: updatedProduct })
       .exec();
   }
+
+  async addReview(
+    id: ObjectId,
+    review: { rating: number; review: string },
+  ): Promise<Product> {
+    return await this.productModel
+      .findOneAndUpdate({ id }, { $push: { reviews: review } })
+      .exec();
+  }
 }

@@ -48,4 +48,12 @@ export class ProductController {
   async updateProduct(@Param('id') id: ObjectId, @Body() product: Product) {
     await this.productService.updateProduct(id, product);
   }
+
+  @Patch('add-review/:id')
+  async addReview(
+    @Param('id') id: ObjectId,
+    @Body() review: { rating: number; review: string },
+  ) {
+    await this.productService.addReview(id, review);
+  }
 }

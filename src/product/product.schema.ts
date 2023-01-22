@@ -4,9 +4,10 @@ import { ProductCategory } from '../enums/enums';
 
 export type ProductDocument = HydratedDocument<Product>;
 
-@Schema()
+@Schema({ timestamps: true })
 export class Product {
   @Prop({
+    type: String,
     required: true,
     unique: true,
     sparse: true,
@@ -14,16 +15,41 @@ export class Product {
   })
   name: string;
 
+  @Prop({
+    type: String,
+    required: true,
+  })
+  description: string;
+
+  @Prop({
+    type: Number,
+    required: true,
+  })
+  price: number;
+
+  @Prop({
+    type: String,
+    required: true,
+    enum: ProductCategory,
+  })
+  category: ProductCategory;
+
+  @Prop({
+    type: [
+      {
+        rating: { type: Number, required: true },
+        review: { type: String, required: true },
+      },
+    ],
+  })
+  reviews: { rating: number; review: string }[];
+
   @Prop(
     raw({
-      category: { type: String, required: true, enum: ProductCategory },
-      title: {
-        type: String,
-        required: true,
-      },
+      albumDetails: {},
+      title: { type: String },
       album: { type: String },
       genre: { type: String },
-      price: { type: Number, required: true },
     }),
   )
   details: Record<string, any>;
