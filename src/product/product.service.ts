@@ -25,7 +25,7 @@ export class ProductService {
   ): Promise<Product[]> {
     return this.productModel
       .find({ 'details.category': category })
-      .sort({ 'details.price': sortOrder })
+      .sort({ price: sortOrder })
       .exec();
   }
 
@@ -40,6 +40,10 @@ export class ProductService {
     return await this.productModel
       .findOneAndUpdate({ id }, { $set: updatedProduct })
       .exec();
+  }
+
+  async findAllReviews(id: ObjectId) {
+    return this.productModel.findOne({ id }, { reviews: 1, _id: 0 }).exec();
   }
 
   async addReview(

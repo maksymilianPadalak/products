@@ -23,7 +23,7 @@ export class ProductController {
     return this.productService.findAll();
   }
 
-  @Get(':category/:order?')
+  @Get('by-category/:category/:order?')
   productsByCategory(
     @Param('category') category: ProductCategory,
     @Param('order') order?: SortOrder,
@@ -60,5 +60,11 @@ export class ProductController {
   @Delete('delete-review/:id')
   async deleteReview(@Param('id') id: ObjectId) {
     await this.productService.deleteReview(id);
+  }
+
+  @Get('reviews/:id')
+  reviews(@Param('id') id: ObjectId) {
+    console.log(id);
+    return this.productService.findAllReviews(id);
   }
 }
