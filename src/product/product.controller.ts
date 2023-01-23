@@ -49,7 +49,7 @@ export class ProductController {
     await this.productService.updateProduct(id, product);
   }
 
-  @Patch('add-review/:id')
+  @Patch('reviews/:id')
   async addReview(
     @Param('id') id: ObjectId,
     @Body() review: { rating: number; review: string },
@@ -57,7 +57,7 @@ export class ProductController {
     await this.productService.addReview(id, review);
   }
 
-  @Delete('delete-review/:id')
+  @Delete('reviews/:id')
   async deleteReview(@Param('id') id: ObjectId) {
     await this.productService.deleteReview(id);
   }
