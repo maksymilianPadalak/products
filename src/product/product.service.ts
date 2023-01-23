@@ -24,7 +24,7 @@ export class ProductService {
     sortOrder?: SortOrder,
   ): Promise<Product[]> {
     return this.productModel
-      .find({ 'details.category': category })
+      .find({ category: category })
       .sort({ price: sortOrder })
       .exec();
   }
