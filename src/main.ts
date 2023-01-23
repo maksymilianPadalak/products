@@ -1,10 +1,11 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ExceptionHandler } from './excaptions.filter';
+import { MongoErrorFilter } from './mongoError.filter';
+import { ValidationErrorFilter } from './validationError.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.useGlobalFilters(new ExceptionHandler());
+  app.useGlobalFilters(new MongoErrorFilter(), new ValidationErrorFilter());
 
   await app.listen(3000);
 }
