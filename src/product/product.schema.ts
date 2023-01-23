@@ -1,5 +1,5 @@
-import { Prop, raw, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import mongoose, { HydratedDocument } from 'mongoose';
 import { ProductCategory } from '../enums/enums';
 
 export type ProductDocument = HydratedDocument<Product>;
@@ -35,6 +35,11 @@ export class Product {
   category: ProductCategory;
 
   @Prop({
+    type: mongoose.Schema.Types.Mixed,
+  })
+  details: any;
+
+  @Prop({
     type: [
       {
         rating: { type: Number, required: true },
@@ -43,16 +48,6 @@ export class Product {
     ],
   })
   reviews: { rating: number; review: string }[];
-
-  @Prop(
-    raw({
-      albumDetails: {},
-      title: { type: String },
-      album: { type: String },
-      genre: { type: String },
-    }),
-  )
-  details: Record<string, any>;
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);
